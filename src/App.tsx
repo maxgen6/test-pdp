@@ -1,14 +1,62 @@
 import CreateTodo from "./components/CreateTodo/CreateTodo";
 import {useEffect, useState} from "react";
 import {ITodoItem} from "./types";
-import {getFromLS, setToLS} from "./utils";
+import {clearLS, getFromLS, setToLS} from "./utils";
 import {LOCALSTORAGE_KEYS_ENUM} from "./enums";
 import TodoItem from "./components/TodoItem/TodoItem";
+import {getDirty} from "./utils/getDirty";
+
+const values = {
+  Foo: '123',
+  Bar: [222, 333],
+  Baz: {
+    Foo1: '789',
+    Bar1: '0011',
+    Baz1: {
+      Foo2: '2233',
+      Bar2: 4455
+    }
+  }
+}
+
+const initialValues = {
+  Foo: '123',
+  Bar: [111, 444],
+  Baz: {
+    Foo1: '7891',
+    Bar1: '0011',
+    Baz1: {
+      Foo2: '2233',
+      Bar2: 44551
+    }
+  }
+}
+
+const mockFirst = {
+  values: {
+    Foo: '123',
+  },
+  initialValues: {
+    Foo: 'qwer'
+  }
+}
+
+const mockSecond = {
+  values: {
+    Foo: '123',
+    Bar: [222, 333],
+  },
+  initialValues: {
+    Foo: '123',
+    Bar: [111, 444],
+  }
+}
 
 function App() {
   const [todos, setTodos] = useState<ITodoItem[]>([])
 
   useEffect(() => {
+    getDirty(mockSecond.values, mockSecond.initialValues)
     const todosFromLS = getFromLS(LOCALSTORAGE_KEYS_ENUM.TODO)
     setTodos(todosFromLS)
   }, [])

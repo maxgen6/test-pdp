@@ -7,4 +7,4 @@ export const setToLS = (key: string, item: any) => {
   return window.localStorage.setItem(key, JSON.stringify(item))
 }
 
-export const  clearLS = () => window.localStorage.clear()
+export const clearLS = () => window.localStorage.clear()
